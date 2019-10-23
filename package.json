@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "file-loader": "^4.2.0",
+    "font-awesome": "^4.7.0",
+    "font-awesome-loader": "^1.0.2",
     "node-sass": "^4.12.0",
     "postcss-loader": "^3.0.0",
     "postcss-sass-loader": "^1.1.0",
