@@ -15,13 +15,17 @@
   transform: skewY(-3deg);
   transform-origin: top left;
   background-size: cover;
+  background-position: 0 -450px;
+  @media screen and (max-width: 768px) {
+    background-position: top;
+  }
 }
 
 @mixin main-headings-style {
   @include font-size(45);
   color: #45148c;
   text-align: center;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.45);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.25);
 }
 
 $main-font-family: 'Source Sans Pro', sans-serif;
@@ -50,6 +54,10 @@ body {
   font-family: $main-font-family;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .background-container {
   position: relative;
 }
@@ -72,7 +80,11 @@ body {
   @include skewed-background;
   background: #fbfbfb;
   z-index: -1;
-  filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.15))
+          drop-shadow(0 0 2px rgba(0,0,0,0.15))
+          drop-shadow(0 0 4px rgba(0,0,0,0.15))
+          drop-shadow(0 0 8px rgba(0,0,0,0.15))
+          drop-shadow(0 0 16px rgba(0,0,0,0.15));
 }
 
 nav {
@@ -98,15 +110,17 @@ nav {
       &:before {
         content: "";
         position: absolute;
-        left: 5%;
+        left: 3%;
         top: 0;
         bottom: 0;
-        width: 80%;
+        width: 0;
+        border-bottom: 2.5px solid rgba(255,255,255,0.8);
+        transition: width 0.3s ease-out;
       }
       &:hover {
         text-shadow: 1px 3px 3px rgba(0,0,0,0.65);
         &:before {
-          border-bottom: 2.5px solid rgba(255,255,255,0.8);
+          width: 80%;
         }
       }
     }
@@ -114,45 +128,68 @@ nav {
 }
 
 header {
+  position: relative;
   .header-text {
-    width: 50%;
+    width: 54%;
     margin-left: 15vw;
-    margin-top: 6vw;
-    margin-bottom: 140px;
+    margin-top: 9vw;
+    margin-bottom: 190px;
     color: #ffffff;
     text-shadow: 0 2px 6px rgba(0,0,0,0.3),
                  0 1px 3px rgba(0,0,0,0.1),
                  0 2px 6px rgba(0,0,0,0.1);
+    @media screen and (max-width: 1250px) {
+      width: 70%;
+    }
     @media screen and (max-width: 768px) {
-      width: 80%;
-      margin: 8vw auto 70px auto;
+      width: 85%;
+      margin: 8vw auto 120px auto;
     }
     h1 {
-      text-transform: capitalize;
-      font-size: 4vw;
+      font-size: 4.2vw;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 0;
+      font-family: $main-font-family;
+      @media screen and (max-width: 1250px) {
+        font-size: 6vw;
+      }
       @media screen and (max-width: 768px) {
-        font-size: 7vw;
+        font-size: 8vw;
+      }
+      @media screen and (max-width: 426px) {
+        font-size: 10vw;
       }
     }
     h4 {
-      font-size: 1.3vw;
-      padding-left: 1px;
+      font-size: 1.4vw;
+      padding-left: 3px;
+      line-height: 1.8vw;
+      color: #f2f2f2;
+      @media screen and (max-width: 1250px) {
+        font-size: 2vw;
+        line-height: 2.5vw;
+      }
       @media screen and (max-width: 768px) {
         font-size: 2.5vw;
+        line-height: 3.3vw;
+      }
+      @media screen and (max-width: 426px) {
+        font-size: 4.5vw;
+        line-height: 5.8vw;
       }
     }
     .icon-links {
-      padding-left: 1px;
-      margin-top: 4.5vw;
-      font-size: 1.8vw;
+      padding-left: 3px;
+      margin-top: 7vw;
+      font-size: 1.6vw;
       width: 20%;
       display: flex;
       justify-content: space-between;
+      @media screen and (max-width: 426px) {
+        width: 40%;
+      }
       i {
         cursor: pointer;
-        transition: text-shadow 0.3s ease-out, transform 0.3s ease-out;
         &:hover {
           transform: scale(1.03);
           text-shadow: 0 2px 6px rgba(0,0,0,0.4),
@@ -160,18 +197,59 @@ header {
                        0 2px 6px rgba(0,0,0,0.25);
         }
       }
+      @media screen and (max-width: 1250px) {
+        font-size: 2.5vw;
+      }
       @media screen and (max-width: 768px) {
         font-size: 3vw;
       }
+      @media screen and (max-width: 426px) {
+        font-size: 5vw;
+      }
     }
   }
+  .read-more {
+    position: absolute;
+    left: 50%;
+    color: #ffffff;
+    font-size: 30px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.3),
+                 0 1px 3px rgba(0,0,0,0.1),
+                 0 2px 6px rgba(0,0,0,0.1);
+    animation-name: updown-large;
+    animation-duration: 0.6s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    @media screen and (max-width: 1850px) {
+      animation-name: updown;
+      font-size: 23px;
+    }
+    @media screen and (max-width: 768px) {
+      animation-name: updown-tablet;
+    }
+  }
+}
+
+@keyframes updown {
+  from {bottom: -118px;}
+  to {bottom: -125px;}
+}
+
+@keyframes updown-tablet {
+  from {bottom: -72px;}
+  to {bottom: -79px;}
+}
+
+@keyframes updown-large {
+  from {bottom: -88px;}
+  to {bottom: -95px;}
 }
 
 .projects {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 210px;
+  padding-bottom: 230px;
   padding-top: 60px;
   h3 {
     @include main-headings-style;
@@ -183,7 +261,7 @@ header {
     justify-content:space-between;
     flex-wrap: wrap;
     width: 50%;
-    margin: 20px auto 0 auto;
+    margin: 10px auto 0 auto;
     @media screen and (max-width: 1800px) {
       width: 70%;
     }
@@ -198,8 +276,13 @@ header {
       background-image: url('./assets/images/container-background.png');
       background-size: cover;
       padding: 6px;
-      box-shadow: 4px 4px 6px rgba(0,0,0,0.55);
-      transition: transform 0.3s ease-out;
+      margin: 10px;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.25),
+                  0 2px 2px rgba(0,0,0,0.20),
+                  0 4px 4px rgba(0,0,0,0.15),
+                  0 8px 8px rgba(0,0,0,0.10),
+                  0 16px 16px rgba(0,0,0,0.05);
+      transition: transform 0.4s ease-out;
       cursor: pointer;
       @media screen and (max-width: 950px) {
         flex-basis: 100%;
@@ -243,13 +326,16 @@ header {
 }
 
 .about {
-  width: 50%;
+  width: 40%;
   margin: auto;
-  padding-bottom: 210px;
+  padding-bottom: 200px;
   padding-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 1560px) {
+    width: 60%;
+  }
   @media screen and (max-width: 1440px) {
     width: 70%;
   }
@@ -257,7 +343,7 @@ header {
     width: 85%;
   }
   @media screen and (max-width: 768px) {
-    width: 95%;
+    width: 90%;
   }
   h3 {
     @include main-headings-style;
@@ -279,8 +365,11 @@ header {
     color: #383838;
   }
   .contact-form {
-    width: 60%;
+    width: 50%;
     margin: 20px auto 0 auto;
+    @media screen and (max-width: 1560px) {
+      width: 60%;
+    }
     @media screen and (max-width: 1440px) {
       width: 70%;
     }
