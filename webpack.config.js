@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   module: {
@@ -17,6 +17,15 @@ module.exports = {
         use: [
           'file-loader',
         ],
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: [':data-src']
+          },
+        },
       },
     ],
   },
