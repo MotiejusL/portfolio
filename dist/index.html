@@ -83,7 +83,10 @@
                 </ul>
               </div>
               <div class="hidden-project-gif">
-                <img id="purplebook-gif">
+                <video autoplay loop muted playsinline>
+                  <source id="purplebook-gif-webm" type="video/webm">
+                  <source id="purplebook-gif-mp4" type="video/mp4">
+                </video>
               </div>
             </div>
             <div class="project">
@@ -108,7 +111,10 @@
                 </ul>
               </div>
               <div class="hidden-project-gif">
-                <img id="taggingapp-gif">
+                <video autoplay loop muted playsinline>
+                  <source id="taggingapp-gif-webm" type="video/webm">
+                  <source id="taggingapp-gif-mp4" type="video/mp4">
+                </video>
               </div>
             </div>
             <div class="project">
@@ -134,7 +140,10 @@
                 </ul>
               </div>
               <div class="hidden-project-gif">
-                <img id="explorit-gif">
+                <video autoplay loop muted playsinline>
+                  <source id="explorit-gif-webm" type="video/webm">
+                  <source id="explorit-gif-mp4" type="video/mp4">
+                </video>
               </div>
             </div>
           </div>
@@ -148,10 +157,10 @@
             <h3>Contact</h3>
             <h4>Feel free to get in touch with me</h4>
             <form>
-                <input type="text" placeholder="Your name"></input>
-                <textarea placeholder="Your message"></textarea>
-                <input type="text" placeholder="Your email"></input>
-              <button>Send</button>
+                <input id="name" type="text" placeholder="Your name"></input>
+                <input id="email" type="text" placeholder="Your email"></input>
+                <textarea id="message" placeholder="Your message"></textarea>
+                <button id="submit" type="button">Send</button>
             </form>
           </div>
         </section>
@@ -161,7 +170,6 @@
       <div class="modal-inner-background">
         <div class="modal-inner">
           <div class="modal-image">
-            <img src="#" alt="modal-image">
           </div>
           <div class="modal-info">
           </div>
@@ -169,6 +177,7 @@
         </div>
       </div>
     </div>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
