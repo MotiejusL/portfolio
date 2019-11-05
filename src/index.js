@@ -21,21 +21,27 @@ const modal = document.querySelector('.modal');
 const modalInner = modal.querySelector('.modal-inner');
 const modalExit = modal.querySelector('.modal-inner .exit');
 const submitButton = document.getElementById("submit");
+const emailIcon = document.getElementsByClassName('email-icon')[0];
+
+emailIcon.addEventListener('click', showEmail);
 
 modalExit.addEventListener('click', exitModal);
 submitButton.addEventListener('click', sendMail);
 
 [...projects].forEach((project) => {
-  project.addEventListener('click', showInModal);
+  const readMore = project.querySelector('h6');
+  readMore.project = project;
+  readMore.addEventListener('click', showInModal);
 })
 
 function showInModal(event) {
   const { currentTarget } = event;
+  const project = currentTarget.project;
   const modalInfo = modal.querySelector('.modal-info');
   const modalImage = modal.querySelector('.modal-image');
-  const projectInfoModal = currentTarget.getElementsByClassName('hidden-project-info')[0];
-  const projectLinks = currentTarget.getElementsByClassName('project-links')[0];
-  const projectGifModal = currentTarget.querySelector('.hidden-project-gif video');
+  const projectInfoModal = project.getElementsByClassName('hidden-project-info')[0];
+  const projectLinks = project.getElementsByClassName('project-links')[0];
+  const projectGifModal = project.querySelector('.hidden-project-gif video');
   const clonedProjectInfoModal = projectInfoModal.cloneNode(true);
   const clonedProjectLinks = projectLinks.cloneNode(true);
   const clonedProjectGifModal = projectGifModal.cloneNode(true);
@@ -97,4 +103,20 @@ function contactMessageDisappear() {
     submitMessage.textContent = 'Feel free to get in touch with me';
     submitMessage.style.color = '#909090';
   }, 3000)
+}
+
+function showEmail(event) {
+  const { currentTarget } = event;
+  const emailContainer = document.getElementsByClassName('email-container')[0];
+  emailContainer.style.opacity = 1;
+  currentTarget.removeEventListener('click', showEmail);
+  currentTarget.addEventListener('click', hideEmail);
+}
+
+function hideEmail(event) {
+  const { currentTarget } = event;
+  const emailContainer = document.getElementsByClassName('email-container')[0];
+  emailContainer.style.opacity = 0;
+  currentTarget.addEventListener('click', showEmail);
+  currentTarget.removeEventListener('click', hideEmail);
 }
