@@ -74,9 +74,9 @@ function sendMail() {
   const messageToSend = `${name.value}, ${email.value}, ${message.value}`;
   const submitMessage = document.querySelector('.contact-form h4');
   Email.send({
-    Host: "smtp.elasticemail.com",
-    Username: "portfoliomot@gmail.com",
-    Password: "1efabd8c-ba80-4fdb-8a62-90f3826c943c",
+    Host: "smtp.sendgrid.com",
+    Username: "apikey",
+    Password: "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",
     To: "motiejus.labzentis@gmail.com",
     From: "portfoliomot@gmail.com",
     Subject: "From Portfolio Contacts",
