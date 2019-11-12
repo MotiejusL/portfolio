@@ -20,13 +20,14 @@ const blurBackground = document.querySelector('.blur-back');
 const modal = document.querySelector('.modal');
 const modalInner = modal.querySelector('.modal-inner');
 const modalExit = modal.querySelector('.modal-inner .exit');
-const submitButton = document.getElementById("submit");
+const form = document.getElementById('form');
 const emailIcon = document.getElementsByClassName('email-icon')[0];
 
 emailIcon.addEventListener('click', showEmail);
 
 modalExit.addEventListener('click', exitModal);
-submitButton.addEventListener('click', sendMail);
+
+form.addEventListener('submit', sendMail);
 
 [...projects].forEach((project) => {
   const readMore = project.querySelector('h6');
@@ -67,34 +68,43 @@ function removeChildElements(parent) {
   }
 }
 
-function sendMail() {
-  const name = document.getElementById("name");
-  const message = document.getElementById("message");
-  const email = document.getElementById("email");
-  const messageToSend = `${name.value}, ${email.value}, ${message.value}`;
+function sendMail(event) {
+  event.preventDefault();
+
+  const data = new FormData(form);
+  ajaxMail(form.method, form.action, data, success, error);
+
+}
+
+function success() {
   const submitMessage = document.querySelector('.contact-form h4');
-  Email.send({
-    Host: "smtp.sendgrid.com",
-    Username: "apikey",
-    Password: "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",
-    To: "motiejus.labzentis@gmail.com",
-    From: "portfoliomot@gmail.com",
-    Subject: "From Portfolio Contacts",
-    Body: messageToSend,
-  }).then((message) => {
-    if (message === 'OK') {
-      submitMessage.textContent = 'Thank you for your message';
-      submitMessage.style.color = '#008000';
-      contactMessageDisappear();
+  form.reset();
+  submitMessage.textContent = 'Thank you for your message';
+  submitMessage.style.color = '#008000';
+  contactMessageDisappear();
+}
+
+function error() {
+  const submitMessage = document.querySelector('.contact-form h4');
+  form.reset();
+  submitMessage.textContent = 'Something went wrong';
+  submitMessage.style.color = '#ff0000';
+  contactMessageDisappear();
+}
+
+function ajaxMail(method, url, data, success, error) {
+  const xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.setRequestHeader('Accept', 'application/json');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== XMLHttpRequest.DONE ) return;
+    if (xhr.status === 200) {
+      success(xhr.response, xhr.responseType);
     } else {
-      submitMessage.textContent = 'Sorry, something went wrong';
-      submitMessage.style.color = '#ff4c4c';
-      contactMessageDisappear();
+      error(xhr.status, xhr.response, xhr.responseType);
     }
-  });
-  name.value = '';
-  message.value = '';
-  email.value = '';
+  }
+  xhr.send(data);
 }
 
 function contactMessageDisappear() {
