@@ -471,6 +471,7 @@ header {
           color: #dcdcdc;
           @include font-size(19);
           transform: translate3d(0,0,0);
+          line-height: 1.25rem;
         }
         li {
           display: inline-block;
